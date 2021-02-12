@@ -1,0 +1,14 @@
+<table style="width:100%">
+  <tr>
+    <th>ID</th>
+    <th>Name (en)</th>
+    <th>Name (ja)</th>
+  </tr>
+  <% @prefectures.each do |prefecture| %>
+    <tr>
+      <td><%= prefecture.id -%></td>
+      <td><%= prefecture.name_en -%></td>
+      <td><%= prefecture.name_ja -%></td>
+    </tr>
+  <% end %>
+</table>
