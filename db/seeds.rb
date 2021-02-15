@@ -59,3 +59,16 @@ Prefecture.create!(
     { id: 90, name_ja: '沖縄総合事務局', name_en: 'Okinawa General Bureau' }
   ]
 )
+
+InundationDepth.create!(
+  [
+    { id: 1, min: 0, max: 0.5 },
+    { id: 2, min: 0.5, max: 1 },
+    { id: 3, min: 1, max: 2 },
+    { id: 4, min: 2, max: 3 },
+    { id: 5, min: 3, max: 4 },
+    { id: 6, min: 4, max: 5 },
+    { id: 7, min: 2, max: 5 },
+    { id: 8, min: 5 },
+  ]
+)
