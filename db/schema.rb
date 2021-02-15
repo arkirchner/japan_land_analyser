@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_15_134746) do
+ActiveRecord::Schema.define(version: 2021_02_15_155807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "postgis"
+
+  create_table "inundation_areas", force: :cascade do |t|
+    t.bigint "prefecture_id"
+    t.bigint "inundation_depth_id"
+    t.geometry "geom", limit: {:srid=>3785, :type=>"st_polygon"}
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["inundation_depth_id"], name: "index_inundation_areas_on_inundation_depth_id"
+    t.index ["prefecture_id"], name: "index_inundation_areas_on_prefecture_id"
+  end
 
   create_table "inundation_depths", force: :cascade do |t|
     t.decimal "min", precision: 2, scale: 1, null: false
@@ -29,4 +40,6 @@ ActiveRecord::Schema.define(version: 2021_02_15_134746) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "inundation_areas", "inundation_depths"
+  add_foreign_key "inundation_areas", "prefectures"
 end
