@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.1'
 
+gem 'activerecord-postgis-adapter'
 gem 'rails', '~> 6.1.2'
 gem 'pg'
 gem 'puma'
