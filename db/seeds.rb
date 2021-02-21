@@ -1,3 +1,5 @@
+require 'csv'
+
 Prefecture.create!(
   [
     { id: 1, name_ja: '北海道', name_en: 'Hokkaido' },
@@ -72,3 +74,32 @@ InundationDepth.create!(
     { id: 8, min: 5 },
   ]
 )
+
+File.open(Rails.root.join('db', 'inundation_details.csv')) do |file|
+  CSV.foreach(file, headers: true) do |row|
+    InundationDetail.create!(row.to_h)
+  end
+end
+
+# InundationDetail
+# "指定の前提となる計画降雨"
+# "告示番号"
+# "関係市町村"
+# "指定年月日"
+# "対象となる洪水予報河川"
+# "作成種別コード"
+# "作成主体"
+#
+# "Planned rainfall as a prerequisite for designation"
+# "Notification number"
+# "Related municipalities"
+# "Designated date"
+# "Target flood forecast river"
+# "Creation type code"
+# "Creating subject"
+
+# InundationNote
+# "説明文"
+# "Explanatory text"
+# "その他計算条件等"
+# "Other calculation conditions, etc."

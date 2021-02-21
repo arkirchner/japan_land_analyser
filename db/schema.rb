@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_15_155807) do
+ActiveRecord::Schema.define(version: 2021_02_26_024407) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,18 @@ ActiveRecord::Schema.define(version: 2021_02_15_155807) do
   create_table "inundation_depths", force: :cascade do |t|
     t.decimal "min", precision: 2, scale: 1, null: false
     t.decimal "max", precision: 2, scale: 1
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "inundation_details", force: :cascade do |t|
+    t.string "planned_rainfall"
+    t.integer "notification_number"
+    t.string "related_municipalities"
+    t.date "designated_date"
+    t.string "target_flood_forecast_river"
+    t.integer "creation_type_code"
+    t.string "creator"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

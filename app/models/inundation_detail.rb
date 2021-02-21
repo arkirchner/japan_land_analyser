@@ -1,0 +1,2 @@
+class InundationDetail < ApplicationRecord
+end
