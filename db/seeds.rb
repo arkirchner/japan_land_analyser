@@ -72,6 +72,11 @@ InundationDepth.create!(
     { id: 6, min: 4, max: 5 },
     { id: 7, min: 2, max: 5 },
     { id: 8, min: 5 },
+    { id: 9, min: 0.5, max: 3 },
+    { id: 10, min: 3, max: 5 },
+    { id: 11, min: 5, max: 10 },
+    { id: 12, min: 10, max: 20 },
+    { id: 13, min: 20 },
   ]
 )
 
