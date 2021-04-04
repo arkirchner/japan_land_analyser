@@ -27,8 +27,8 @@ ActiveRecord::Schema.define(version: 2021_02_26_024407) do
   end
 
   create_table "inundation_depths", force: :cascade do |t|
-    t.decimal "min", precision: 2, scale: 1, null: false
-    t.decimal "max", precision: 2, scale: 1
+    t.decimal "min", precision: 3, scale: 1, null: false
+    t.decimal "max", precision: 3, scale: 1
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
