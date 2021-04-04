@@ -1,0 +1,31 @@
+import mapboxgl from "!mapbox-gl";
+
+const osmStyle = {
+  version: 8,
+  sources: {
+    OSM: {
+      type: "raster",
+      tiles: ["http://a.tile.openstreetmap.org/{z}/{x}/{y}.png"],
+      tileSize: 256
+    }
+  },
+  layers: [
+    {
+      id: "OSM",
+      type: "raster",
+      source: "OSM",
+      minzoom: 0,
+      maxzoom: 22
+    }
+  ]
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  mapboxgl.accessToken = process.env.MAPBOX_KEY;
+  const map = new mapboxgl.Map({
+    container: "map",
+    center: [130.40, 33.59],
+    style: osmStyle,
+    zoom: 9
+  });
+});
