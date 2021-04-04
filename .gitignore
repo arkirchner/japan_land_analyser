@@ -37,3 +37,4 @@ yarn-debug.log*
 
 # Ignore import data
 /db/inundation_details.csv
+/db/inundation_areas.csv

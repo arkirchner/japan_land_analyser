@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_26_024407) do
+ActiveRecord::Schema.define(version: 2021_02_26_024408) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,11 +18,13 @@ ActiveRecord::Schema.define(version: 2021_02_26_024407) do
 
   create_table "inundation_areas", force: :cascade do |t|
     t.bigint "prefecture_id"
-    t.bigint "inundation_depth_id"
-    t.geometry "geom", limit: {:srid=>3785, :type=>"st_polygon"}
+    t.bigint "inundation_depth_id", null: false
+    t.bigint "inundation_detail_id"
+    t.geometry "geom", limit: {:srid=>3785, :type=>"st_polygon"}, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["inundation_depth_id"], name: "index_inundation_areas_on_inundation_depth_id"
+    t.index ["inundation_detail_id"], name: "index_inundation_areas_on_inundation_detail_id"
     t.index ["prefecture_id"], name: "index_inundation_areas_on_prefecture_id"
   end
 
@@ -53,5 +55,6 @@ ActiveRecord::Schema.define(version: 2021_02_26_024407) do
   end
 
   add_foreign_key "inundation_areas", "inundation_depths"
+  add_foreign_key "inundation_areas", "inundation_details"
   add_foreign_key "inundation_areas", "prefectures"
 end

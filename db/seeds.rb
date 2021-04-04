@@ -1,6 +1,6 @@
 require 'csv'
 
-Prefecture.create!(
+Prefecture.upsert_all(
   [
     { id: 1, name_ja: '北海道', name_en: 'Hokkaido' },
     { id: 2, name_ja: '青森県', name_en: 'Aomori' },
@@ -59,10 +59,10 @@ Prefecture.create!(
     { id: 88, name_ja: '四国地方整備局', name_en: 'Shikokuchi Regional Development Bureau' },
     { id: 89, name_ja: '九州地方整備局', name_en: 'Kyushu Regional Development Bureau' },
     { id: 90, name_ja: '沖縄総合事務局', name_en: 'Okinawa General Bureau' }
-  ]
+  ].map { |p| p.merge({ updated_at: Time.now, created_at: Time.now }) }
 )
 
-InundationDepth.create!(
+InundationDepth.upsert_all(
   [
     { id: 1, min: 0, max: 0.5 },
     { id: 2, min: 0.5, max: 1 },
@@ -71,40 +71,32 @@ InundationDepth.create!(
     { id: 5, min: 3, max: 4 },
     { id: 6, min: 4, max: 5 },
     { id: 7, min: 2, max: 5 },
-    { id: 8, min: 5 },
+    { id: 8, min: 5, max: nil },
     { id: 9, min: 0.5, max: 3 },
     { id: 10, min: 3, max: 5 },
     { id: 11, min: 5, max: 10 },
     { id: 12, min: 10, max: 20 },
-    { id: 13, min: 20 },
-  ]
+    { id: 13, min: 20, max: nil },
+  ].map { |p| p.merge({ updated_at: Time.now, created_at: Time.now }) }
 )
 
-File.open(Rails.root.join('db', 'inundation_details.csv')) do |file|
-  CSV.foreach(file, headers: true) do |row|
-    InundationDetail.create!(row.to_h)
+details = []
+CSV.foreach(Rails.root.join('db', 'inundation_details.csv'), headers: true) do |row|
+  details << row.to_h.merge({ updated_at: Time.now, created_at: Time.now })
+end
+InundationDetail.upsert_all(details)
+
+areas = []
+counter = 0
+CSV.foreach(Rails.root.join('db', 'inundation_areas.csv'), headers: true) do |row|
+  areas << row.to_h.merge({ updated_at: Time.now, created_at: Time.now })
+  counter = counter + 1
+
+  if counter == 1000
+    InundationArea.upsert_all(areas)
+
+    areas = []
+    counter = 0
   end
 end
-
-# InundationDetail
-# "指定の前提となる計画降雨"
-# "告示番号"
-# "関係市町村"
-# "指定年月日"
-# "対象となる洪水予報河川"
-# "作成種別コード"
-# "作成主体"
-#
-# "Planned rainfall as a prerequisite for designation"
-# "Notification number"
-# "Related municipalities"
-# "Designated date"
-# "Target flood forecast river"
-# "Creation type code"
-# "Creating subject"
-
-# InundationNote
-# "説明文"
-# "Explanatory text"
-# "その他計算条件等"
-# "Other calculation conditions, etc."
+InundationArea.upsert_all(areas)
