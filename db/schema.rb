@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2021_02_26_024408) do
     t.bigint "prefecture_id"
     t.bigint "inundation_depth_id", null: false
     t.bigint "inundation_detail_id"
-    t.geometry "geom", limit: {:srid=>3785, :type=>"st_polygon"}, null: false
+    t.geometry "geom", limit: {:srid=>4326, :type=>"st_polygon"}, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["inundation_depth_id"], name: "index_inundation_areas_on_inundation_depth_id"

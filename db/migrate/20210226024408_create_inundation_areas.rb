@@ -4,7 +4,7 @@ class CreateInundationAreas < ActiveRecord::Migration[6.1]
       t.references :prefecture, foreign_key: true, null: true
       t.references :inundation_depth, foreign_key: true, null: false
       t.references :inundation_detail, foreign_key: true, null: true
-      t.st_polygon :geom, srid: 3785, null: false
+      t.st_polygon :geom, srid: 4326, null: false
 
       t.timestamps
     end
