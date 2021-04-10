@@ -4,6 +4,13 @@ class TileStylesController < ApplicationController
              version: 8,
              layers: [
                {
+                 id: 'osm',
+                 type: 'raster',
+                 source: 'osm',
+                 minzoom: 0,
+                 maxzoom: 22
+               },
+               {
                  id: 'hoges',
                  type: 'fill',
                  source: 'hoges',
@@ -13,6 +20,11 @@ class TileStylesController < ApplicationController
                }
              ],
              sources: {
+               osm: {
+                 type: 'raster',
+                 tiles: %w[http://a.tile.openstreetmap.org/{z}/{x}/{y}.png],
+                 tileSize: 256
+               },
                hoges: { type: 'vector', url: 'http://localhost:3000/tile_json' }
              }
            }
