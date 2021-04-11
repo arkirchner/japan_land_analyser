@@ -2,11 +2,11 @@ class InundationArea < ApplicationRecord
   SELECT_GEOM_FOR_MVT =
     '
     ST_AsMVTGeom(ST_Transform(geom, 3857),
-    ST_Transform(ST_TileEnvelope(:z, :x, :y), 3857))
+    ST_Transform(ST_TileEnvelope(:z, :x, :y), 3857)) AS geom, inundation_depth_id
   '.squish.freeze
 
   def self.as_mvt
-    select('ST_AsMVT(mvtgeom.*) mvt').take.mvt
+    select("ST_AsMVT(mvtgeom.*, 'area') AS mvt").take.mvt
   end
 
   scope :as_mvtgeom,
