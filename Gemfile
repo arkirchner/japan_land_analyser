@@ -5,6 +5,7 @@ ruby '2.7.1'
 
 gem 'activerecord-postgis-adapter'
 gem 'rails', '~> 6.1.2'
+gem 'rgeo-proj4', github: 'rgeo/rgeo-proj4', branch: 'proj-version-upgrade'
 gem 'pg'
 gem 'puma'
 gem 'sass-rails'
